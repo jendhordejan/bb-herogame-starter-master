@@ -15,6 +15,8 @@ const hero = {
 
 const innElement = document.getElementById("inn")
 const daggerElement = document.getElementById("dagger")
+const changeHeroNameElement = document.getElementById("btnChangeName")
+let NewHeroName='';
 
   
 
@@ -62,34 +64,44 @@ daggerElement.addEventListener('click', event => {
   pickUpItem(hero, dagger)
 })
 
+changeHeroNameElement.addEventListener('click', event => {
+  let sign = prompt("Change Your Hero Name")
+  sign = window.prompt();
+  NewHeroName=sign
+  displaystats('heroname')
+  
+})
+
 
 //function to display hero stats
-function displaystats(){
-  
+function displaystats(statname){
   const secElement = document.getElementById("hero stats");
   const aNameElement = document.getElementById("heroname");
   const aHealthElement = document.getElementById("health");
   const aWeapElement = document.getElementById("weapon");
   const aInventoryElement = document.getElementById("inventory");
-
-  aNameElement.innerText = `Name: ${hero.name}` 
-  aHealthElement.innerText = `Health: ${hero.health}`
-  aWeapElement.innerText = `Weapon: ${hero.weapon.type} - ${hero.weapon.damage}`
-  aInventoryElement.innerText = `Inventory: ${hero.inventory.length}`
-
-  secElement.appendChild(aNameElement);
-  secElement.appendChild(document.createElement('br'))
-  secElement.appendChild(aWeapElement);
-  secElement.appendChild(document.createElement('br'))
-  secElement.appendChild(aHealthElement);
-  secElement.appendChild(document.createElement('br'))
-  secElement.appendChild(aInventoryElement)
-
+  if (statname=='all'){  
+    aNameElement.innerText = `Name: ${hero.name}` 
+    aHealthElement.innerText = `Health: ${hero.health}`
+    aWeapElement.innerText = `Weapon: ${hero.weapon.type} - ${hero.weapon.damage}`
+    aInventoryElement.innerText = `Inventory: ${hero.inventory.length}`
   
+    secElement.appendChild(aNameElement);
+    secElement.appendChild(document.createElement('br'))
+    secElement.appendChild(aWeapElement);
+    secElement.appendChild(document.createElement('br'))
+    secElement.appendChild(aHealthElement);
+    secElement.appendChild(document.createElement('br'))
+    secElement.appendChild(aInventoryElement)
+  } else if (statname=='heroname'){
+    hero.name = NewHeroName
+    aNameElement.innerText = `Name: ${hero.name}`
+  }
+
 
 }
 
-displaystats()
+displaystats('all')
 
 
 
