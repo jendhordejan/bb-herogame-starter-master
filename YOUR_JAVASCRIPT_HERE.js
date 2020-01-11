@@ -8,13 +8,14 @@ const hero = {
     damage: 2
   },
   attack: 0,
-  health: 10,
+  health: 8,
   heroic: true,
   inventory: []
 }
 
 const innElement = document.getElementById("inn")
 const daggerElement = document.getElementById("dagger")
+
 const changeHeroNameElement = document.getElementById("btnChangeName")
 let NewHeroName='';
 
@@ -27,7 +28,8 @@ function rest(person) {
   if (person.health<10){
     person.health = 10;
     hero.health=10;
-      alert('Your health is full and ready to battle')
+      alert('Your health is full and ready to battle');
+      displaystats('health')
   } else {
       alert('Your health is still full')
   }
@@ -37,15 +39,14 @@ function rest(person) {
 //equipWeapon : function to equipt hero weapon
 function equipWeapon(person) {
   /* ... */
-
+    person.weapon = person.innElement[0];
+    displaystats('weapon')
+    return person;
 }
 
 //pickUpItem : function to pickup item.
 function pickUpItem(person,weapon){
-  console.log(`weapon in PickUpItem ${weapon}`)
-  person.inventory[person.inventory.length+1] = weapon;
-  // console.log(person.inventory[person.inventory.length-1])
-  // console.log(person.inventory[person.inventory.length-1].damage)
+  person.inventory[person.inventory.length] = weapon;
   hero.inventory[hero.inventory.length] = weapon;
   return person;
 }
@@ -60,7 +61,7 @@ innElement.addEventListener('click', event => {
 
 daggerElement.addEventListener('click', event => {
   console.log('dagger is clicked')
-  const dagger = {type: 'dagger', damage: 2}
+  const dagger = {type: 'dagger', damage: 2};
   pickUpItem(hero, dagger)
 })
 
@@ -96,6 +97,10 @@ function displaystats(statname){
   } else if (statname=='heroname'){
     hero.name = NewHeroName
     aNameElement.innerText = `Name: ${hero.name}`
+  } else if (statname=='health'){
+    aHealthElement.innerText = `Health: ${hero.health}`
+  } else if (statname=='weapon'){
+    aWeapElement.innElement = `Weapon: ${hero.weapon.type} - ${hero.weapon.damage}`
   }
 
 
